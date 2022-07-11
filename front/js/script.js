@@ -1,5 +1,7 @@
-fetch("http://localhost:3000/api/products");
-
+fetch("http://localhost:3000/api/products")
+    .then(response => response.json())
+    .then((data => {
+        while (products.name){
 
 // créer l'élement a
 let elemA = document.createElement('a');
@@ -20,26 +22,20 @@ elemArticle.appendChild(elemImg);
 //créer un elément h3 de texte
 let elemH3 = document.createElement('h3');
 //changer la classe du h3
-elemH3.class = 'productName';
+elemH3.classList.add = 'productName';
 //créer un texte associé au h3
-let elemH3Text = document.createTextNode('Kanap name1');
-//relier le texte au h3
-elemH3.appendChild(elemH3Text);
+elemH3.innerText = "Kanap name1";
 //relier le h3 à l'article
-elemArticle.appendChild(elemH3)
+elemArticle.appendChild(elemH3);
 //créer l'élément p
 let elemP = document.createElement('p');
 //changer la classe du p
-elemP.class = 'productDescription'; 
+elemP.classList.add = 'productDescription'; 
 //créer un texte associé au p
-let elemPText = createTextNode('Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.')
-//relier le texte au p
-elemP.appendChild(elemPText);
+elemP.innerText = "Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu.";
 //relier le p à l'article
-elemArticle.appendChild(elemP)
+elemArticle.appendChild(elemP);
 //chercher l'élément section et y ajouter l'élément a
-document.querySelector('#items section').appendChild(elemA)
-
-
-
-
+document.getElementById('items').appendChild(elemA);
+}
+}))
