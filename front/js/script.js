@@ -6,6 +6,8 @@ fetch('http://localhost:3000/api/products')
     }
   })
   .then(function(value) {
+    value.forEach(products => {
+        
 const items = document.getElementById('items');
 let elemA = document.createElement('a');
 elemA.href = './product.html?id=42';
@@ -14,10 +16,10 @@ let elemArticle = document.createElement('article');
 elemA.appendChild(elemArticle);
 let elemH3 = document.createElement('h3');
 elemH3.classList.add = 'productName';
-elemH3.innerText = value.name;
+elemH3.innerText = products.name;
 elemArticle.appendChild(elemH3);
 }) 
-
+})
 /*
 // créer l'élement a
 let elemA = document.createElement('a');
