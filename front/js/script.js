@@ -1,8 +1,24 @@
-fetch("http://localhost:3000/api/products")
-    .then(response => response.json())
-    .then((data => {
-        while (products.name){
 
+fetch('http://localhost:3000/api/products')
+  .then(function(reponse) {
+    if (reponse.ok) {
+      return reponse.json();
+    }
+  })
+  .then(function(value) {
+const items = document.getElementById('items');
+let elemA = document.createElement('a');
+elemA.href = './product.html?id=42';
+items.appendChild(elemA);
+let elemArticle = document.createElement('article');
+elemA.appendChild(elemArticle);
+let elemH3 = document.createElement('h3');
+elemH3.classList.add = 'productName';
+elemH3.innerText = value.name;
+elemArticle.appendChild(elemH3);
+}) 
+
+/*
 // créer l'élement a
 let elemA = document.createElement('a');
 // changer l'attribut href de l'élément a
@@ -37,5 +53,5 @@ elemP.innerText = "Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis 
 elemArticle.appendChild(elemP);
 //chercher l'élément section et y ajouter l'élément a
 document.getElementById('items').appendChild(elemA);
-}
-}))
+*/
+
