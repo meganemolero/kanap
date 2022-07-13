@@ -9,11 +9,12 @@ fetch('http://localhost:3000/api/products')
 /*boucle pour recupérer tous les produits*/
     value.forEach(products => {
 /*creation des éléments en dynamique*/
+
 /*lien avec la section #items */       
 const items = document.getElementById('items');
 /*création de la balise a*/
 let elemA = document.createElement('a');
-elemA.href = './product.html?id=42';
+elemA.href = "./product.html?id=products._id";
 items.appendChild(elemA);
 /*Création de la balise article*/
 let elemArticle = document.createElement('article');
@@ -35,5 +36,6 @@ elemP.innerText = products.description;
 elemArticle.appendChild(elemP);
 }) 
 })
+.catch((error) => console.log("erreur 404"+ error));
 
 
