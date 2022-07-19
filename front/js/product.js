@@ -1,5 +1,5 @@
-let params = new URLSearchParams (window.location.href);
-let id = params.searchParams.get ('id');
+let params = new URL(window.location.href);
+let id = params.searchParams.get('id');
 let url = 'http://localhost:3000/api/products/' + id;
 
 
@@ -14,7 +14,7 @@ fetch(url)
         let items = document.getElementById('title');
         items.innerHTML = product.name;
 
-        let price = document.getElementById('price');
+        /*let price = document.getElementById('price');
         price.innerHTML = product.price;
 
         let description = document.getElementById('description');
@@ -26,6 +26,6 @@ fetch(url)
 
         let colors = document.getElementById('colors')
         colors.appendChild = elemOption;
-
+    */
     })
     .catch((error) => console.log("erreur 404"+ error));
