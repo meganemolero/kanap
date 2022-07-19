@@ -1,5 +1,5 @@
-let params = new URLSearchParams (windows.location.search);
-let id = params.get ('id');
+let params = new URLSearchParams (window.location.href);
+let id = params.searchParams.get ('id');
 let url = 'http://localhost:3000/api/products/' + id;
 
 
