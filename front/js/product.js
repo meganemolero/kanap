@@ -31,9 +31,10 @@ fetch(url)
 
     /*Données utiles pour la récupération dans le local storage à savoir quantité et couleur*/
 
-    let productColor = document.getElementById('color').value;
-    let productQuantity = document.getElementById('quantity').value;
-    let productId = "52648975996634218";
+    let productColor = document.querySelector("#colors");
+    let productQuantity = document.querySelector("#quantity");
+    let productId = id;
+    
 
     /*Création du tableau rassemblant les données à récupérer*/
 
@@ -50,7 +51,7 @@ fetch(url)
     /*Création de la fonction d'ajout au panier*/
 
     function addToCart(){
-        localStorage.setItem("ToAdd", JSON.stringify(productId))
+        localStorage.setItem("ToAdd", JSON.stringify(productOptions))
     };
     
     
