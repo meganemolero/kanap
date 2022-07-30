@@ -14,18 +14,62 @@ fetch(url)
         let items = document.getElementById('title');
         items.innerHTML = product.name;
 
-        /*let price = document.getElementById('price');
+        let price = document.getElementById('price');
         price.innerHTML = product.price;
 
         let description = document.getElementById('description');
         description.innerHTML = product.description;
 
-        let elemOption = document.createElement('option');
-        elemOption.value = product.colors;
-        elemOption.innerText = product.colors;
-
-        let colors = document.getElementById('colors')
-        colors.appendChild = elemOption;
-    */
+        for(let color of product.colors){
+            let elemOption = document.createElement('option');
+            elemOption.value = color;
+            elemOption.innerText = color;
+            let colors = document.getElementById('colors');
+            colors.appendChild(elemOption); 
+        };
     })
+
+    /*Données utiles pour la récupération dans le local storage à savoir quantité et couleur*/
+
+    let productColor = document.getElementById('color').value;
+    let productQuantity = document.getElementById('quantity').value;
+    let productId = "52648975996634218";
+
+    /*Création du tableau rassemblant les données à récupérer*/
+
+    let productOptions = [productId, productQuantity, productColor];
+
+    /*Création de la variable qui gère le bouton*/
+
+    let button = document.querySelector("#addToCart");
+
+    /*Création de l'évenement au click du bouton*/
+
+    button.addEventListener('click', addToCart);
+
+    /*Création de la fonction d'ajout au panier*/
+
+    function addToCart(){
+        localStorage.setItem("ToAdd", JSON.stringify(productId))
+    };
+    
+    
+
+    
+    
+    
+    
+   
+    
+
+   
+
+    
+    
+
+    
+
+
+    /*
     .catch((error) => console.log("erreur 404"+ error));
+    */
