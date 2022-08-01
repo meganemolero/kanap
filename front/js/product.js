@@ -31,14 +31,19 @@ fetch(url)
 
     /*Données utiles pour la récupération dans le local storage à savoir quantité et couleur*/
 
-    let productColor = document.querySelector("#colors");
-    let productQuantity = document.querySelector("#quantity");
+    let productColor = document.getElementById('colors').value;
+    let productQuantity = document.getElementById('quantity').value;
     let productId = id;
+   
     
 
     /*Création du tableau rassemblant les données à récupérer*/
 
-    let productOptions = productColor + productQuantity + productId;
+    let productOptions = {
+        couleur: productColor,
+        quantité: productQuantity, 
+        id: productId 
+        };
     let productToAdd = [];
     productToAdd.push(productOptions);
 
