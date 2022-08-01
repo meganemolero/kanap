@@ -38,7 +38,10 @@ fetch(url)
 
     /*Création du tableau rassemblant les données à récupérer*/
 
-    let productOptions = [productId, productQuantity, productColor];
+    let productOptions = productColor + productQuantity + productId;
+    let productToAdd = [];
+    productToAdd.push(productOptions);
+
 
     /*Création de la variable qui gère le bouton*/
 
@@ -51,7 +54,7 @@ fetch(url)
     /*Création de la fonction d'ajout au panier*/
 
     function addToCart(){
-        localStorage.setItem("ToAdd", JSON.stringify(productOptions))
+        localStorage.setItem("ToAdd", JSON.stringify(productToAdd))
     };
     
     
