@@ -26,42 +26,27 @@ fetch(url)
             elemOption.innerText = color;
             let colors = document.getElementById('colors');
             colors.appendChild(elemOption); 
-        };
-    })
+        }
 
-    /*Données utiles pour la récupération dans le local storage à savoir quantité et couleur*/
+        let button = document.querySelector("#addToCart");
+        button.addEventListener('click', function(){
 
-    let productColor = document.getElementById('colors').value;
-    let productQuantity = document.getElementById('quantity').value;
-    let productId = id;
-   
-    
 
-    /*Création du tableau rassemblant les données à récupérer*/
 
     let productOptions = {
-        couleur: productColor,
-        quantité: productQuantity, 
-        id: productId 
+        couleur: document.getElementById('colors').value,
+        quantite: parseInt(document.getElementById('quantity').value), 
+        id: id, 
         };
-    let productToAdd = [];
-    productToAdd.push(productOptions);
+    let cart = JSON.parse(localStorage.getItem("toAdd"));
 
-
-    /*Création de la variable qui gère le bouton*/
-
-    let button = document.querySelector("#addToCart");
-
-    /*Création de l'évenement au click du bouton*/
-
-    button.addEventListener('click', addToCart);
-
-    /*Création de la fonction d'ajout au panier*/
-
-    function addToCart(){
-        localStorage.setItem("ToAdd", JSON.stringify(productToAdd))
-    };
-    
+    /*function addToCart(){
+        cart = [];
+        cart.push(productOptions);
+        localStorage.setItem("ToAdd", JSON.stringify(cart))
+    };*/
+    })   
+})
     
 
     
