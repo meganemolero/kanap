@@ -69,23 +69,23 @@ let TotalPrice = 0;
   cartInputQuantity.setAttribute("max","100");
   cartInputQuantity.value = productAddToCart.price;
   cartSettingsQuantity.appendChild(cartInputQuantity);
-  /*Création de la balise div cart__item__content__settings__delete*/
+  /*Création de la balise div cart__item__content__settings__delete
   let cartSettingsDelete = document.createElement('div');
   cartDivContentSettings.appendChild(cartSettingsDelete);
-  /*Création de la balise p supprimer*/
+  /*Création de la balise p supprimer
   let cartSettingsDeleteP = document.createElement('p');
   cartSettingsDeleteP.innerText = "Supprimer";
   cartSettingsDelete.appendChild(cartSettingsDeleteP);
-  /*Récupération de la valeur de la quantité*/
+  /*Récupération de la valeur de la quantité
   let cartTotalQuantity = document.getElementById('totalQuantity');
-  cartTotalQuantity.value = /*Total du nombre d'articles*/;
+  cartTotalQuantity.value = /*Total du nombre d'articles;
   let cartPriceDiv = document.getElementsByClassName('cart__price');
   cartPriceDiv.appendChild(cartTotalQuantity);
-  /*Récupération de la valeur du prix total*/
+  /*Récupération de la valeur du prix total
   let CartTotalPrice = document.getElementById('totalPrice');
   CartTotalPrice.value = cartTotalQuantity*productAddToCart.price;
   cartPriceDiv.appendChild(CartTotalPrice);
-  /*Affichage des différents messages d'erreur*/
+  /*Affichage des différents messages d'erreur
 
   
 
