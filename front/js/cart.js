@@ -64,6 +64,17 @@ let productsPutOnLocalStorage = JSON.parse(localStorage.getItem("toAdd"));
   cartInputQuantity.setAttribute("min", "1");
   cartInputQuantity.setAttribute("max","100");
   cartInputQuantity.value = productAddToCart.price;
+  cartSettingsQuantity.appendChild(cartInputQuantity);
+  /*Création de la balise div cart__item__content__settings__delete*/
+  let cartSettingsDelete = document.createElement('div');
+  cartDivContentSettings.appendChild(cartSettingsDelete);
+  /*Création de la balise p supprimer*/
+  let cartSettingsDeleteP = document.createElement('p');
+  cartSettingsDeleteP.innerText = "Supprimer";
+  cartSettingsDelete.appendChild(cartSettingsDeleteP);
+  
+
+
   
 
 
