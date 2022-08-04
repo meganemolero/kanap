@@ -78,7 +78,7 @@ let TotalPrice = 0;
   cartSettingsDelete.appendChild(cartSettingsDeleteP);
   /*Récupération de la valeur de la quantité*/
   let cartTotalQuantity = document.getElementById('totalQuantity');
-  cartTotalQuantity.value = /*Total du nombre d'articles*/
+  cartTotalQuantity.value = /*Total du nombre d'articles*/;
   let cartPriceDiv = document.getElementsByClassName('cart__price');
   cartPriceDiv.appendChild(cartTotalQuantity);
   /*Récupération de la valeur du prix total*/
