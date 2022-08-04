@@ -39,17 +39,18 @@ fetch(url)
         quantite: parseInt(document.getElementById('quantity').value), 
         id: id, 
         };
-        /*Création du tableau - Parse pour traiter l'objet*/
-        /*Possibilité d'ajouter plusieurs articles*/
+        /*On crée la variable qui récupère le local Storage*/
         let cart = localStorage.getItem("toAdd");
-        if (cart ===null){
-            cart = []   
-        }else{
-            cart = JSON.parse(localStorage.getItem("toAdd"));
-            cart = [];
-            cart.push(productOptions);  
-            /*Envoi des valeurs dans le local Storage*/
+        /*Si cart existe alors push en tableau et transfère les données au local Storage*/        
+        if (cart !==null){
+            cart = []
+            cart.push(productOptions)
             localStorage.setItem("ToAdd", JSON.stringify(cart))
+        /*Sinon on crée un tableau vide qu'on transfère au local Storage*/     
+        }else{
+            let emptyCart =[];
+            emptyCart.push(null);  
+            localStorage.setItem("ToAdd", JSON.stringify(emptyCart))
         }
         
             
