@@ -1,9 +1,13 @@
 /*Récupération du panier dans le localStorage*/
 let productsPutOnLocalStorage = JSON.parse(localStorage.getItem("toAdd"));
+let TotalQuantity = 0;
+let TotalPrice = 0;
 
 
 
-/*fetch('http://localhost:3000/api/products')
+
+
+/*fetch('http://localhost:3000/api/products' + id)
   .then(function(reponse) {
     if (reponse.ok) {
       return reponse.json();
@@ -72,6 +76,17 @@ let productsPutOnLocalStorage = JSON.parse(localStorage.getItem("toAdd"));
   let cartSettingsDeleteP = document.createElement('p');
   cartSettingsDeleteP.innerText = "Supprimer";
   cartSettingsDelete.appendChild(cartSettingsDeleteP);
+  /*Récupération de la valeur de la quantité*/
+  let cartTotalQuantity = document.getElementById('totalQuantity');
+  cartTotalQuantity.value = /*Total du nombre d'articles*/
+  let cartPriceDiv = document.getElementsByClassName('cart__price');
+  cartPriceDiv.appendChild(cartTotalQuantity);
+  /*Récupération de la valeur du prix total*/
+  let CartTotalPrice = document.getElementById('totalPrice');
+  CartTotalPrice.value = cartTotalQuantity*productAddToCart.price;
+  cartPriceDiv.appendChild(CartTotalPrice);
+  /*Affichage des différents messages d'erreur*/
+
   
 
 
