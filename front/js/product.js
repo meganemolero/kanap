@@ -40,14 +40,23 @@ fetch(url)
         id: id, 
         };
         /*Création du tableau - Parse pour traiter l'objet*/
-        let cart = JSON.parse(localStorage.getItem("toAdd"));
-        cart = [];
-        cart.push(productOptions);
-        /*Envoi des valeurs dans le local Storage*/
-        localStorage.setItem("ToAdd", JSON.stringify(cart))
-    
-    })   
-})
+        /*Possibilité d'ajouter plusieurs articles*/
+        let cart = localStorage.getItem("toAdd");
+        if (cart ===null){
+            cart = []   
+        }else{
+            cart = JSON.parse(localStorage.getItem("toAdd"));
+            cart = [];
+            cart.push(productOptions);  
+            /*Envoi des valeurs dans le local Storage*/
+            localStorage.setItem("ToAdd", JSON.stringify(cart))
+        }
+        
+            
+        })
+    })
+
+
     
 
     
