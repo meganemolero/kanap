@@ -40,16 +40,17 @@ fetch(url)
         id: id, 
         };
         /*On crée la variable qui récupère le local Storage*/
-        let cart = localStorage.getItem("toAdd");
+        let cart = JSON.parse(localStorage.getItem("toAdd"));
         /*Si cart existe alors push en tableau et transfère les données au local Storage*/        
         if (cart){
-            cart.push(productOptions)
-            localStorage.setItem("ToAdd", JSON.stringify(cart))
+            let 
+            cart.push(productOptions);
+            localStorage.setItem("toAdd", JSON.stringify(cart));
         /*Sinon on crée un tableau vide qu'on transfère au local Storage*/     
         }else{
-            let cart =[];
+            cart =[];
             cart.push(productOptions);  
-            localStorage.setItem("ToAdd", JSON.stringify(cart))  
+            localStorage.setItem("toAdd", JSON.stringify(cart)); 
         }
         
             
