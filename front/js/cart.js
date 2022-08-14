@@ -2,36 +2,37 @@
 let cart = JSON.parse(localStorage.getItem("toAdd"));
 
 /*Fonction qui va aller requeter l'api*/
-function addToBasket()
-{
+function addToBasket(){
 
-/*Paramètrage de quantité et prix à 0 par défaut*/
-let TotalQuantity = 0;
-let TotalPrice = 0;
+      /*Paramètrage de quantité et prix à 0 par défaut*/
+      let TotalQuantity = 0;
+      let TotalPrice = 0;
 
-/*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
-let productsOnCart = 
-{
-  id : toAdd.id,
-  couleur: toAdd.couleur,
-  quantite: toAdd.quantite
-}
-        fetch('http://localhost:3000/api/products' + id)
-        .then(function(reponse) {
-            if (reponse.ok) {
-            return reponse.json();
-            }
-        })
-        .then(function(productAddToCart) {
-          productAddToCart.forEach(productAdd => {
+      /*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
+      let productsOnCart = 
+        {
+        id : toAdd.id,
+        couleur: toAdd.couleur,
+        quantite: toAdd.quantite
+        }
+        for (let [id, color] of productsOnCart){
+          for (let [color, quantity] of productsOnCart.couleur){
+              fetch('http://localhost:3000/api/products' + id)
+                .then(function(reponse) {
+                    if (reponse.ok) {
+                    return reponse.json();
+                    }
+              })
+                .then(function(productAddToCart) {
+           
             /*Lien avec la section #cart__items*/
             const cartItems = document.getElementById('cart__items');
 
             /*Création de la balise article*/
             let cartArticle = document.createElement('article');
             cartArticle.classList.add = 'cart__item';
-            cartArticle.dataset.id = selectedProductId;
-            cartArticle.dataset.color = selectedProductColor;
+            cartArticle.dataset.id = productsOnCart.id;
+            cartArticle.dataset.color = productsOnCart.couleur;
             cartItems.appendChild(cartArticle);
 
             /*Création de la balise div cart__item__img*/
@@ -41,8 +42,8 @@ let productsOnCart =
 
             /*Création de la balise img*/
             let cartImg = document.createElement('img');
-            cartImg.src = productAddToCart.imageUrl;
-            cartImg.alt = productAddToCart.altTxt;
+            cartImg.src = productAdd.imageUrl;
+            cartImg.alt = productAdd.altTxt;
             cartDivImg.appendChild(cartImg);
 
             /*Création de la balise div cart__item__content*/
@@ -57,17 +58,17 @@ let productsOnCart =
 
             /*Création de la balise h2*/
             let cartDescriptionName = document.createElement('h2');
-            cartDescriptionName.innerText = productAddToCart.name;
+            cartDescriptionName.innerText = productAdd.name;
             cartDivContentDescription.appendChild(cartDescriptionName);
 
             /*Création de la balise p couleur*/
             let cartDescriptionPColor = document.createElement('p');
-            cartDescriptionPColor.innerText = selectedProductQuantity;
+            cartDescriptionPColor.innerText = productsOnCart.quantite;
             cartDivContentDescription.appendChild(cartDescriptionPColor);
 
             /*Création de la balise p prix*/
             let cartDescriptionPPrice = document.createElement('p');
-            cartDescriptionPPrice.innerText = productAddToCart.price;
+            cartDescriptionPPrice.innerText = productAdd.price;
             cartDivContentDescription.appendChild(cartDescriptionPPrice);
 
             /*Création de la balise div cart__item__content__settings*/
@@ -93,7 +94,7 @@ let productsOnCart =
             cartInputQuantity.name = "itemQuantity";
             cartInputQuantity.min = 1 ;
             cartInputQuantity.max = 100;
-            cartInputQuantity.value = selectedProductQuantity;
+            cartInputQuantity.value = productsOnCart.quantite;
             cartSettingsQuantity.appendChild(cartInputQuantity);
   
             /*Création du bouton "supprimer"*/
@@ -118,7 +119,7 @@ let productsOnCart =
             /*Affichage des différents messages d'erreur
             */
             
-          })}};
+          })};
 
   
   
