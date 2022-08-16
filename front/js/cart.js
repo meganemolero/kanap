@@ -2,9 +2,9 @@
 let cart = JSON.parse(localStorage.getItem("toAdd"));
 
 /*Fonction qui va aller requeter l'api*/
-function addToBasket(){
-
-      /*Paramètrage de quantité et prix à 0 par défaut*/
+function async addToBasket(){
+    if(cart)
+    /*Paramètrage de quantité et prix à 0 par défaut*/
       let TotalQuantity = 0;
       let TotalPrice = 0;
 
@@ -23,7 +23,7 @@ function addToBasket(){
                     return reponse.json();
                     }
                     })
-                .then( /*async*/ function(productAddToCart) {
+                .then(function(productAddToCart) {
            
                   /*Lien avec la section #cart__items*/
                   const cartItems = document.getElementById('cart__items');
