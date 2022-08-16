@@ -32,30 +32,34 @@ fetch(url)
         /*Création de la variable qui gère le bouton "ajouter au panier"*/
         let button = document.querySelector("#addToCart");
         /*Fonction qui crée les objets à stocker dans le local Storage*/
-        let productOptions = {
-            couleur: document.getElementById('colors').value,
-            quantite: parseInt(document.getElementById('quantity').value), 
-            id: id, 
-            };
+        
 
         /*Création de l'évenement au click*/
         button.addEventListener('click', function(){
+            let productOptions = {
+                couleur: document.getElementById('colors').value,
+                quantite: parseInt(document.getElementById('quantity').value), 
+                id: id, 
+                };
+            /*On crée la variable qui récupère le local Storage*/
+            let cart = JSON.parse(localStorage.getItem("toAdd"));
             if (productOptions.couleur ===""){
                 alert("Veuillez sélectionner une couleur");    
             }
-                else if(productOptions.quantite > 100){
+            else if(productOptions.quantite > 100){
                     alert("Il n'est pas possible de commander plus de 100 produits par commande");
                 }
-            else{
-                productOptions;
-                /*On crée la variable qui récupère le local Storage*/
-                let cart = JSON.parse(localStorage.getItem("toAdd"));
+                else{
+                    /*productOptions;
+                
                 /*Si cart existe alors push en tableau et transfère les données au local Storage*/        
                 if (cart){
-                    let getProducts = cart.find( cart =>(cart.id === productOptions.id && cart.color === productOptions.couleur));
-                    if(cart && getProducts !==undefined){
-                        let addNewQuantity = productOptions.quantite + parseInt(/*nouvelle quantité*/);
+                    let getProducts = cart.find( p => p.id == productOptions.id && p.couleur == productOptions.couleur);
+                    if(getProducts){
+                        let addNewQuantity = getProducts.quantite + productOptions.quantite;
+                        getProducts.quantite = addNewQuantity;
                         localStorage.setItem("toAdd", JSON.stringify(cart));
+                        alert ("Votre article a bien été ajouté au panier");
                         }
                     else{
                         cart.push(productOptions);
