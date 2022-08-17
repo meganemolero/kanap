@@ -60,11 +60,11 @@ fetch(url)
                 /*On verifie si cart existe*/        
                 if (cart){
                     /*Puis on a va rechercher les infos d'id et de couleur pour vérifier s'il y a deja un meme produit dans le LS*/
-                    let getProducts = cart.find( p => p.id == productOptions.id && p.color == productOptions.couleur);
+                    let getProducts = cart.find( p => p.id == productOptions.id && p.couleur == productOptions.couleur);
                     /*Si c'est le cas on incrémente la quantité*/
                     if(getProducts){
                         let addNewQuantity = getProducts.quantite + productOptions.quantite;
-                        getProducts.quantity = addNewQuantity;
+                        getProducts.quantite = addNewQuantity;
                         /*On envoi les données au LS*/
                         localStorage.setItem("toAdd", JSON.stringify(cart));
                         /*On alerte l'utilisateur que le produit a été ajouté*/
