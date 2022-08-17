@@ -48,11 +48,14 @@ fetch(url)
                 alert("Veuillez sélectionner une couleur");    
             }
             /*On verifie que la quantité est bien entre 1 et 100*/
-            else if(productOptions.quantite > 100 && productOptions.quantite < 1){
-                    alert("Veuillez sélectionner une quantité de 1 à 100");
-                }
+            else if(productOptions.quantite > 100){
+                    alert("Vous ne pouvez pas commander plus de 100 articles");
+            }
+            else if(productOptions.quantite < 1){
+                    alert("Veuillez séléctionner un nombre d'articles compris entre 1 et 100")
+            }
                 else{
-                    /*productOptions;
+                    /*productOptions;*/
                 
                 /*On verifie si cart existe*/        
                 if (cart){
@@ -60,7 +63,7 @@ fetch(url)
                     let getProducts = cart.find( p => p.id == productOptions.id && p.color == productOptions.couleur);
                     /*Si c'est le cas on incrémente la quantité*/
                     if(getProducts){
-                        let addNewQuantity = getProducts.quantity + productOptions.quantite;
+                        let addNewQuantity = getProducts.quantite + productOptions.quantite;
                         getProducts.quantity = addNewQuantity;
                         /*On envoi les données au LS*/
                         localStorage.setItem("toAdd", JSON.stringify(cart));
