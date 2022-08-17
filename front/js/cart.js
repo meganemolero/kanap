@@ -2,28 +2,27 @@
 let cart = JSON.parse(localStorage.getItem("toAdd"));
 
 /*Fonction qui va aller requeter l'api*/
-function async addToBasket(){
-    if(cart)
+async function addToBasket(){
+    if(cart){
     /*Paramètrage de quantité et prix à 0 par défaut*/
       let TotalQuantity = 0;
       let TotalPrice = 0;
-
-      /*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
-      let productsOnCart = 
-        {
-        id : toAdd.id,
-        couleur: toAdd.couleur,
-        quantite: toAdd.quantite
-        }
-        for (let [id, color] of productsOnCart){
-          for (let [color, quantity] of productsOnCart.couleur){
-              fetch('http://localhost:3000/api/products' + id)
-                .then(function(reponse) {
+          /*Boucle pour aller récupérer tous les produits dans le LS*/
+          for (productsAddToBasket of cart){
+            /*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
+            let productsOnCart = 
+                  {
+                  id : toAdd.id,
+                  couleur: toAdd.couleur,
+                  quantite: toAdd.quantite
+                  }
+                fetch('http://localhost:3000/api/products' + id)
+                  .then(function(reponse) {
                     if (reponse.ok) {
                     return reponse.json();
                     }
                     })
-                .then(function(productAddToCart) {
+                  .then(function(productAddToCart) {
            
                   /*Lien avec la section #cart__items*/
                   const cartItems = document.getElementById('cart__items');
@@ -42,8 +41,8 @@ function async addToBasket(){
 
                   /*Création de la balise img*/
                   let cartImg = document.createElement('img');
-                  cartImg.src = productAdd.imageUrl;
-                  cartImg.alt = productAdd.altTxt;
+                  cartImg.src = productAddToCart.imageUrl;
+                  cartImg.alt = productAddToCart.altTxt;
                   cartDivImg.appendChild(cartImg);
 
                   /*Création de la balise div cart__item__content*/
@@ -58,17 +57,17 @@ function async addToBasket(){
 
                   /*Création de la balise h2*/
                   let cartDescriptionName = document.createElement('h2');
-                  cartDescriptionName.innerText = productAdd.name;
+                  cartDescriptionName.innerText = productAddToCart.name;
                   cartDivContentDescription.appendChild(cartDescriptionName);
 
                   /*Création de la balise p couleur*/
                   let cartDescriptionPColor = document.createElement('p');
-                  cartDescriptionPColor.innerText = productsOnCart.quantite;
+                  cartDescriptionPColor.innerText = productsOnCart.couleur;
                   cartDivContentDescription.appendChild(cartDescriptionPColor);
 
                   /*Création de la balise p prix*/
                   let cartDescriptionPPrice = document.createElement('p');
-                  cartDescriptionPPrice.innerText = productAdd.price;
+                  cartDescriptionPPrice.innerText = productAddToCart.price;
                   cartDivContentDescription.appendChild(cartDescriptionPPrice);
 
                   /*Création de la balise div cart__item__content__settings*/
@@ -83,8 +82,8 @@ function async addToBasket(){
 
                   /*Création de la balise p quantité*/
                   let cartSettingsQuantityP = document.createElement('p');
-                  cartSettingsQuantityP.value = /*quantité totale*/        
-                  cartArticle.innerText = /*quantité totale*/
+                  cartSettingsQuantityP.value = productsOnCart.quantite;        
+                  cartArticle.innerText = "Qté : "
                   cartSettingsQuantity.appendChild(cartSettingsQuantityP);
 
                   /*Création de la balise input et de ses attributs*/
