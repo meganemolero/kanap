@@ -43,24 +43,31 @@ fetch(url)
                 };
             /*On crée la variable qui récupère le local Storage*/
             let cart = JSON.parse(localStorage.getItem("toAdd"));
+            /*On verifie si une couleur est bien selectionée*/
             if (productOptions.couleur ===""){
                 alert("Veuillez sélectionner une couleur");    
             }
-            else if(productOptions.quantite > 100){
-                    alert("Il n'est pas possible de commander plus de 100 produits par commande");
+            /*On verifie que la quantité est bien entre 1 et 100*/
+            else if(productOptions.quantite > 100 && productOptions.quantite < 1){
+                    alert("Veuillez sélectionner une quantité de 1 à 100");
                 }
                 else{
                     /*productOptions;
                 
-                /*Si cart existe alors push en tableau et transfère les données au local Storage*/        
+                /*On verifie si cart existe*/        
                 if (cart){
-                    let getProducts = cart.find( p => p.id == productOptions.id && p.couleur == productOptions.couleur);
+                    /*Puis on a va rechercher les infos d'id et de couleur pour vérifier s'il y a deja un meme produit dans le LS*/
+                    let getProducts = cart.find( p => p.id == productOptions.id && p.color == productOptions.couleur);
+                    /*Si c'est le cas on incrémente la quantité*/
                     if(getProducts){
-                        let addNewQuantity = getProducts.quantite + productOptions.quantite;
-                        getProducts.quantite = addNewQuantity;
+                        let addNewQuantity = getProducts.quantity + productOptions.quantite;
+                        getProducts.quantity = addNewQuantity;
+                        /*On envoi les données au LS*/
                         localStorage.setItem("toAdd", JSON.stringify(cart));
+                        /*On alerte l'utilisateur que le produit a été ajouté*/
                         alert ("Votre article a bien été ajouté au panier");
                         }
+                    /*Sinon on ajoute un nouveau produit au LS*/
                     else{
                         cart.push(productOptions);
                         localStorage.setItem("toAdd", JSON.stringify(cart));
