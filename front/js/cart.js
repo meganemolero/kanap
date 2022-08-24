@@ -16,13 +16,13 @@ async function addToBasket(){
                   couleur: toAdd.couleur,
                   quantite: toAdd.quantite
                   }
-                fetch('http://localhost:3000/api/products' + id)
+                fetch('http://localhost:3000/api/products/' + productsOnCart.id)
                   .then(function(reponse) {
                     if (reponse.ok) {
                     return reponse.json();
                     }
                     })
-                  .then(function(productAddToCart) {
+                  .then(function(productsAddToBasket) {
            
                   /*Lien avec la section #cart__items*/
                   const cartItems = document.getElementById('cart__items');
@@ -41,8 +41,8 @@ async function addToBasket(){
 
                   /*Création de la balise img*/
                   let cartImg = document.createElement('img');
-                  cartImg.src = productAddToCart.imageUrl;
-                  cartImg.alt = productAddToCart.altTxt;
+                  cartImg.src = productsAddToBasket.imageUrl;
+                  cartImg.alt = productsAddToBasket.altTxt;
                   cartDivImg.appendChild(cartImg);
 
                   /*Création de la balise div cart__item__content*/
@@ -57,7 +57,7 @@ async function addToBasket(){
 
                   /*Création de la balise h2*/
                   let cartDescriptionName = document.createElement('h2');
-                  cartDescriptionName.innerText = productAddToCart.name;
+                  cartDescriptionName.innerText = productsAddToBasket.name;
                   cartDivContentDescription.appendChild(cartDescriptionName);
 
                   /*Création de la balise p couleur*/
@@ -67,7 +67,7 @@ async function addToBasket(){
 
                   /*Création de la balise p prix*/
                   let cartDescriptionPPrice = document.createElement('p');
-                  cartDescriptionPPrice.innerText = productAddToCart.price;
+                  cartDescriptionPPrice.innerText = productsAddToBasket.price;
                   cartDivContentDescription.appendChild(cartDescriptionPPrice);
 
                   /*Création de la balise div cart__item__content__settings*/
@@ -95,7 +95,23 @@ async function addToBasket(){
                   cartInputQuantity.max = 100;
                   cartInputQuantity.value = productsOnCart.quantite;
                   cartSettingsQuantity.appendChild(cartInputQuantity);
-  
+                  /*Modifier la quantité d'un produit*/
+                  cartInputQuantity.addEventListener("change", (m) => {
+                    m.preventDefault();
+                    let modifyId = productsOnCart.id;
+                    let modifyCouleur = productsOnCart.couleur;
+                    let modifyProduct = cart.find(p => p.id == modifyId && p.couleur == modifyCouleur);
+                        if(modifyProduct){
+                          modifyProduct = productsOnCart.quantite;
+                          localStorage.setItem("toAdd", JSON.stringify(cart));
+
+                         } else {
+                            cart.push(productOptions);
+                            localStorage.setItem("toAdd", JSON.stringify(cart));
+                         }
+                    reload
+                  }
+                  )
                   /*Création du bouton "supprimer"*/
                   /*Création de la div*/
                   let cartSettingsDelete = document.createElement('div');
@@ -106,19 +122,24 @@ async function addToBasket(){
                   cartSettingsDeleteP.classList.add = 'deleteItem';
                   cartSettingsDeleteP.innerText = "Supprimer";
                   cartSettingsDelete.appendChild(cartSettingsDeleteP);
-
-                  /*Récupération de la valeur de la quantité
-                  let cartTotalQuantity = document.getElementById('totalQuantity');
-  
-
-                  /*Récupération de la valeur du prix total
-                  let CartTotalPrice = document.getElementById('totalPrice');
- 
-
-                  /*Affichage des différents messages d'erreur
-                  */
-            
-          })}}};
+                  /*Supprimer un produit contenu dans le local storage*/
+                  cartSettingsDeleteP.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    let deleteId = productsOnCart.id;
+                    let deleteCouleur = productsOnCart.couleur;
+                    let deleteItem = cart.filter (p => p.id != deleteId || p.couleur != deleteCouleur).localStorage.removeItem("toAdd");
+                    localStorage.setItem("toAdd", JSON.stringify(cart));
+                    reload
+                  }
+                  )
+                  function reload (){
+                    document.location.reload
+                  }
+                  }
+                  )
+          }
+    }
+};
 
   
   
