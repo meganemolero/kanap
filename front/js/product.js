@@ -31,11 +31,10 @@ fetch(url)
         }
         /*Création de la variable qui gère le bouton "ajouter au panier"*/
         let button = document.querySelector("#addToCart");
-        /*Fonction qui crée les objets à stocker dans le local Storage*/
-        
 
         /*Création de l'évenement au click*/
         button.addEventListener('click', function(){
+            /*Variable qui crée les objets à stocker dans le local Storage*/
             let productOptions = {
                 couleur: document.getElementById('colors').value,
                 quantite: parseInt(document.getElementById('quantity').value), 
@@ -48,15 +47,10 @@ fetch(url)
                 alert("Veuillez sélectionner une couleur");    
             }
             /*On verifie que la quantité est bien entre 1 et 100*/
-            else if(productOptions.quantite > 100){
-                    alert("Vous ne pouvez pas commander plus de 100 articles");
-            }
-            else if(productOptions.quantite < 1){
-                    alert("Veuillez séléctionner un nombre d'articles compris entre 1 et 100")
+            else if(productOptions.quantite > 100 || productOptions.quantite < 1){
+                    alert("Vous devez saisir une quantité comprise entre 1 et 100");
             }
                 else{
-                    /*productOptions;*/
-                
                 /*On verifie si cart existe*/        
                 if (cart){
                     /*Puis on a va rechercher les infos d'id et de couleur pour vérifier s'il y a deja un meme produit dans le LS*/
