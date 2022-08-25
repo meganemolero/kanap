@@ -4,9 +4,6 @@ let cart = JSON.parse(localStorage.getItem("toAdd"));
 /*Fonction qui va aller requeter l'api*/
 async function addToBasket(){
     if(cart){
-    /*Paramètrage de quantité et prix à 0 par défaut*/
-      let TotalQuantity = 0;
-      let TotalPrice = 0;
           /*Boucle pour aller récupérer tous les produits dans le LS*/
           for (productsAddToBasket of cart){
             /*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
@@ -109,6 +106,7 @@ async function addToBasket(){
                             cart.push(productOptions);
                             localStorage.setItem("toAdd", JSON.stringify(cart));
                          }
+                    calculTotals
                     reload
                   }
                   )
@@ -127,8 +125,9 @@ async function addToBasket(){
                     e.preventDefault();
                     let deleteId = productsOnCart.id;
                     let deleteCouleur = productsOnCart.couleur;
-                    let deleteItem = cart.filter (p => p.id != deleteId || p.couleur != deleteCouleur).localStorage.removeItem("toAdd");
+                    let deleteItem = cart.filter (p => p.id != deleteId || p.couleur != deleteCouleur).remove();
                     localStorage.setItem("toAdd", JSON.stringify(cart));
+                    calculTotals
                     reload
                   }
                   )
@@ -139,7 +138,19 @@ async function addToBasket(){
                   )
           }
     }
+    function calculTotals(){
+      /*On recherche les éléments du DOM*/
+      let totalQuantity = document.getElementById('totalQuantity');
+      let totalPrice = document.getElementById('totalPrice');
+      /*On initialise les compteurs à 0 par défaut*/
+      let totalProducts = 0;
+      let totalProductsPrice = 0;
+      /*On fait les calculs*/
+      totalProducts += parseInt(productsOnCart.quantite);
+      totalProductsPrice +=productsAddToBasket.price * parseInt(productsOnCart.quantite);
+    }
 };
+
 
   
   
