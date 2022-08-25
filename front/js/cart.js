@@ -150,6 +150,39 @@ async function addToBasket(){
       totalProductsPrice +=productsAddToBasket.price * parseInt(productsOnCart.quantite);
     }
 };
+/*Mise en place des formulaires de contact*/
+
+/*Création des variables qui vont nous être utiles*/
+
+/*Variables de regex*/
+/*Adresse mail*/
+let regexEmail = new RegExp (/^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9-][.]{1}[a-z]{2,3}$/);
+/*Adresse postale*/
+let regexAdress = new RegExp (/^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9_-]$/);
+/*Nom, prénom et ville*/
+let regexInfos = new RegExp (/^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}$/);
+
+/*Variables pour les différents Input*/
+let firstName = document.getElementById('firstName');
+let lastName = document.getElementById('lastName');
+let adress = document.getElementById('address');
+let city = document.getElementById('city');
+let email = document.getElementById('email');
+
+/*Variables pour les messages d'erreur*/
+let firstNameErrorMessage = document.getElementById('firstNameErrorMsg');
+firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+let lastNameErrorMessage = document.getElementById('lastNameErrorMsg');
+lastNameErrorMessage.innerText = ; "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. "
+let adressErrorMessage = document.getElementById('addressErrorMsg');
+adressErrorMessage.innerText = "Les symboles sont interdits";
+let cityErrorMessage = document.getElementById('cityErrorMsg');
+cityErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. "
+let emailErrorMessage = document.getElementById('emailErrorMsg');
+emailErrorMessage.innerText = "adresse email invalide";
+
+
+
 
 
   
