@@ -171,22 +171,18 @@ let email = document.getElementById('email');
 
 /*Variables pour les messages d'erreur*/
 let firstNameErrorMessage = document.getElementById('firstNameErrorMsg');
-firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
 let lastNameErrorMessage = document.getElementById('lastNameErrorMsg');
-lastNameErrorMessage.innerText = ; "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. "
 let adressErrorMessage = document.getElementById('addressErrorMsg');
-adressErrorMessage.innerText = "Les symboles sont interdits";
 let cityErrorMessage = document.getElementById('cityErrorMsg');
-cityErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. "
 let emailErrorMessage = document.getElementById('emailErrorMsg');
-emailErrorMessage.innerText = "adresse email invalide";
 
 
-
-
-
-  
-  
+/*Messages d'erreur à insérer dans les conditions*/
+firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+lastNameErrorMessage.innerText =  "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+adressErrorMessage.innerText = "Les symboles sont interdits";
+cityErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. " ; 
+emailErrorMessage.innerText = "Adresse email invalide";  
 
   
 
