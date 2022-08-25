@@ -5,7 +5,7 @@ let cart = JSON.parse(localStorage.getItem("toAdd"));
 async function addToBasket(){
     if(cart){
           /*Boucle pour aller récupérer tous les produits dans le LS*/
-          for (productsAddToBasket of cart){
+          for (let toAdd of cart){
             /*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
             let productsOnCart = 
                   {
@@ -19,7 +19,7 @@ async function addToBasket(){
                     return reponse.json();
                     }
                     })
-                  .then(function(productsAddToBasket) {
+                  .then(function(toAdd) {
            
                   /*Lien avec la section #cart__items*/
                   const cartItems = document.getElementById('cart__items');
@@ -38,8 +38,8 @@ async function addToBasket(){
 
                   /*Création de la balise img*/
                   let cartImg = document.createElement('img');
-                  cartImg.src = productsAddToBasket.imageUrl;
-                  cartImg.alt = productsAddToBasket.altTxt;
+                  cartImg.src = toAdd.imageUrl;
+                  cartImg.alt = toAdd.altTxt;
                   cartDivImg.appendChild(cartImg);
 
                   /*Création de la balise div cart__item__content*/
@@ -54,7 +54,7 @@ async function addToBasket(){
 
                   /*Création de la balise h2*/
                   let cartDescriptionName = document.createElement('h2');
-                  cartDescriptionName.innerText = productsAddToBasket.name;
+                  cartDescriptionName.innerText = toAdd.name;
                   cartDivContentDescription.appendChild(cartDescriptionName);
 
                   /*Création de la balise p couleur*/
@@ -64,7 +64,7 @@ async function addToBasket(){
 
                   /*Création de la balise p prix*/
                   let cartDescriptionPPrice = document.createElement('p');
-                  cartDescriptionPPrice.innerText = productsAddToBasket.price;
+                  cartDescriptionPPrice.innerText = toAdd.price;
                   cartDivContentDescription.appendChild(cartDescriptionPPrice);
 
                   /*Création de la balise div cart__item__content__settings*/
@@ -178,11 +178,11 @@ let emailErrorMessage = document.getElementById('emailErrorMsg');
 
 
 /*Messages d'erreur à insérer dans les conditions*/
-firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+/*firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
 lastNameErrorMessage.innerText =  "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
 adressErrorMessage.innerText = "Les symboles sont interdits";
 cityErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. " ; 
-emailErrorMessage.innerText = "Adresse email invalide";  
+emailErrorMessage.innerText = "Adresse email invalide";  */
 
   
 
