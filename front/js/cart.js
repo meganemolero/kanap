@@ -1,7 +1,7 @@
 /*Récupération du panier dans le localStorage*/
 let cart = JSON.parse(localStorage.getItem("toAdd"));
 
-/*Fonction qui va aller requeter l'api*/
+/*Fonction asynchrone qui va créer un tableau des objets présent dans la panier donc dans le LS*/
 async function addToBasket(){
     if(cart){
           /*Boucle pour aller récupérer tous les produits dans le LS*/
@@ -13,6 +13,7 @@ async function addToBasket(){
                   couleur: toAdd.couleur,
                   quantite: toAdd.quantite
                   }
+                /*Récupération des données de l'API*/
                 fetch('http://localhost:3000/api/products/' + productsOnCart.id)
                   .then(function(reponse) {
                     if (reponse.ok) {
@@ -20,7 +21,7 @@ async function addToBasket(){
                     }
                     })
                   .then(function(toAdd) {
-           
+                  /*Création des éléments du DOM en createElements*/
                   /*Lien avec la section #cart__items*/
                   const cartItems = document.getElementById('cart__items');
 
@@ -93,10 +94,14 @@ async function addToBasket(){
                   cartInputQuantity.value = productsOnCart.quantite;
                   cartSettingsQuantity.appendChild(cartInputQuantity);
                   /*Modifier la quantité d'un produit*/
+                  /*Evenement de modification*/
                   cartInputQuantity.addEventListener("change", (m) => {
                     m.preventDefault();
+                    /*Création de variables utilisées lors de la modification*/
+                    /*Nous avons besoin de récupérer l'id et la couleur stockés dans le LS*/
                     let modifyId = productsOnCart.id;
                     let modifyCouleur = productsOnCart.couleur;
+                    /*Nous allons rechercher avec la méthode find et comparer les id et les couleurs des objets modifiés*/
                     let modifyProduct = cart.find(p => p.id == modifyId && p.couleur == modifyCouleur);
                         if(modifyProduct){
                           modifyProduct = productsOnCart.quantite;
@@ -106,7 +111,9 @@ async function addToBasket(){
                             cart.push(productOptions);
                             localStorage.setItem("toAdd", JSON.stringify(cart));
                          }
+                    /*On joue la fonction de calcul des totaux*/
                     calculTotals
+                    /*On joue la fonction de rechargement de la page*/
                     reload
                   }
                   )
@@ -121,23 +128,32 @@ async function addToBasket(){
                   cartSettingsDeleteP.innerText = "Supprimer";
                   cartSettingsDelete.appendChild(cartSettingsDeleteP);
                   /*Supprimer un produit contenu dans le local storage*/
+                  /*On crée l'evenement de suppression au click sur le bouton supprimer*/
                   cartSettingsDeleteP.addEventListener("click", (e) => {
                     e.preventDefault();
+                    /*On crée les variables utilisées lors de la suppression*/
                     let deleteId = productsOnCart.id;
                     let deleteCouleur = productsOnCart.couleur;
+                    /*La méthode .filter permet d'aller rechercher les éléments précis que l'on veut supprimer en fonction de l'id et la couleur*/
+                    /*le .remove est une fonction du localStorage pour supprimer un élément*/
                     let deleteItem = cart.filter (p => p.id != deleteId || p.couleur != deleteCouleur).remove();
+                    /*On actualise le LS*/
                     localStorage.setItem("toAdd", JSON.stringify(cart));
+                    /*On joue la fonction de calcul des totaux*/
                     calculTotals
+                    /*On joue la fonction d'actualisation de la page*/
                     reload
                   }
                   )
-                  function reload (){
-                    document.location.reload
-                  }
                   }
                   )
           }
     }
+    /*Fonction pour actualiser la page actuelle*/
+    function reload (){
+      document.location.reload
+    }
+    /*Fonction pour calculer le prix total et les quantités totales*/
     function calculTotals(){
       /*On recherche les éléments du DOM*/
       let totalQuantity = document.getElementById('totalQuantity');
@@ -149,8 +165,12 @@ async function addToBasket(){
       totalProducts += parseInt(productsOnCart.quantite);
       totalProductsPrice +=productsAddToBasket.price * parseInt(productsOnCart.quantite);
     }
-};
-/*Mise en place des formulaires de contact*/
+}
+/*On joue la fonction principale que l'on vient de créer*/
+addToBasket()
+
+
+                                                          /*Mise en place des formulaires de contact*/
 
 /*Création des variables qui vont nous être utiles*/
 
@@ -175,6 +195,8 @@ let lastNameErrorMessage = document.getElementById('lastNameErrorMsg');
 let adressErrorMessage = document.getElementById('addressErrorMsg');
 let cityErrorMessage = document.getElementById('cityErrorMsg');
 let emailErrorMessage = document.getElementById('emailErrorMsg');
+
+/*Mise en place des conditions de regExp*/
 
 
 /*Messages d'erreur à insérer dans les conditions*/
