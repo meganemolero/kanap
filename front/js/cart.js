@@ -156,11 +156,11 @@ async function addToBasket(){
     /*Fonction pour calculer le prix total et les quantités totales*/
     function calculTotals(){
       /*On recherche les éléments du DOM*/
-      let totalQuantity = document.getElementById('totalQuantity');
-      let totalPrice = document.getElementById('totalPrice');
+      let totalProducts = document.getElementById('totalQuantity');
+      let totalProductsPrice = document.getElementById('totalPrice');
       /*On initialise les compteurs à 0 par défaut*/
-      let totalProducts = 0;
-      let totalProductsPrice = 0;
+      totalProducts = 0;
+      totalProductsPrice = 0;
       /*On fait les calculs*/
       totalProducts += parseInt(productsOnCart.quantite);
       totalProductsPrice +=productsAddToBasket.price * parseInt(productsOnCart.quantite);
@@ -170,41 +170,158 @@ async function addToBasket(){
 addToBasket()
 
 
-                                                          /*Mise en place des formulaires de contact*/
+/*************************************************          Mise en place des formulaires de contact      *********************************************************************/
 
 /*Création des variables qui vont nous être utiles*/
 
 /*Variables de regex*/
 /*Adresse mail*/
-let regexEmail = new RegExp (/^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9-][.]{1}[a-z]{2,3}$/);
+let regexEmail = new RegExp ('^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9._-]+[.]{1}[a-z]{2,10}$', 'g');
 /*Adresse postale*/
-let regexAdress = new RegExp (/^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9_-]$/);
+let regexAddress = new RegExp ('^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9_-]$');
 /*Nom, prénom et ville*/
-let regexInfos = new RegExp (/^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}$/);
+let regexInfos = new RegExp ('^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}$');
 
 /*Variables pour les différents Input*/
 let firstName = document.getElementById('firstName');
 let lastName = document.getElementById('lastName');
-let adress = document.getElementById('address');
+let address = document.getElementById('address');
 let city = document.getElementById('city');
 let email = document.getElementById('email');
 
 /*Variables pour les messages d'erreur*/
 let firstNameErrorMessage = document.getElementById('firstNameErrorMsg');
 let lastNameErrorMessage = document.getElementById('lastNameErrorMsg');
-let adressErrorMessage = document.getElementById('addressErrorMsg');
+let addressErrorMessage = document.getElementById('addressErrorMsg');
 let cityErrorMessage = document.getElementById('cityErrorMsg');
 let emailErrorMessage = document.getElementById('emailErrorMsg');
 
-/*Mise en place des conditions de regExp*/
+/*Ecoute des modifications des champs du formulaire*/
+
+/**********************************Email********************************************/
+
+email.addEventListener("change", function(){
+  validEmail(this);
+})
+/*Création de la fonction validEmail*/
+let validEmail = function(inputEmail){
+  /*On teste la regExp*/
+  let testEmail = regexEmail.test(inputEmail.value);
+  /*Si la regExp renvoie true*/
+  if (testEmail){
+      emailErrorMessage.innerText = "Adresse Email Valide";
+  }
+  /*Sinon si elle renvoie false*/
+  else {
+      emailErrorMessage.innerText = "Adresse Email invalide ";
+  }
+}
+/**********************************Adresse********************************************/
+adress.addEventListener("change", function(){
+  validAddress(this);
+})
+/*Création de la fonction validAdress*/
+let validAddress = function(inputAddress){
+  /*On teste la regExp*/
+  let testAddress = regexAddress.test(inputAddress.value);
+  /*Si la regExp renvoie true*/
+  if (testAddress){
+      addressErrorMessage.innerText = "Adresse valide";
+  }
+  /*Sinon si elle renvoie false*/
+  else{
+      addressErrorMessage.innerText = "Les symboles sont interdits"
+  }
+}
+/*********************************Prénom**************************/
+firstName.addEventListener("change", function(){
+  validFirstName(this);
+});
+/*Création de la fonction validFirstName*/
+let validFirstName = function(inputFirstName){
+  /*On teste la regExp*/
+  let testFirstName = regexInfos.test(inputFirstName.value);
+  /*Si la regExp renvoie true*/
+  if(testFirstName){
+    firstNameErrorMessage.innerText = "Saisie valide";
+  }
+  /*Sinon si elle renvoie false*/
+  else {
+    firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+  }
+}
+/*********************************Nom******************************/
+lastName.addEventListener("change", function(){
+  validLastName(this);
+})
+/*Création de la fonction validLastName*/
+let validLastName = function(inputLastName){
+  /*On teste la regExp*/
+  let testLastName = regexInfos.test(inputLastName.value);
+  /*Si la regExp renvoie true*/
+  if(testLastName){
+    lastNameErrorMessage.innerText = "Saisie valide";
+  }
+  /*Sinon si elle renvoie false*/
+  else {
+    lastNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+  }
+}
+/********************************Ville*************************************/
+city.addEventListener("change", function(){
+  validCity(this);
+})
+/*Création de la fonction validLastName*/
+let validCity = function(inputCity){
+  /*On teste la regExp*/
+  let testCity = regexInfos.test(inputCity.value);
+  /*Si la regExp renvoie true*/
+  if(testCity){
+    cityErrorMessage.innerText = "Saisie valide";
+  }
+  /*Sinon si elle renvoie false*/
+  else {
+    cityErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
+  }
+}
+
+/*************************************************************Envoi des informations ******************************/
+/*On crée une fonction pour envoyer 2 tableaux au LS ( Les informations de contact et le récapitulatif des produits présents dans le LS)*/
+function createElementsToPost(){
+    /*Récaptulatif des données saisies dans le formulaire*/
+    let contactInfos ={
+      fisrtName : firstName.value,
+      lastName : lastName.value,
+      address : address.value,
+      city : city.value,
+      email : email.value,
+    };
+    /*Récupérations des données produits dans le LS*/
+    let productsArray = cart;
+    /*Déclaration d'un tableau*/
+    let cartArray = [];
+    /*On boucle pour récupérer tous les produits du LS*/
+    for (let i = 0; i< productsArray.length; i++){
+        /*Si LS vide (ne renvoie aucune valeur)*/
+        if (cartArray.find(p => p === productsArray[i][0])){
+            console.log("Le panier est vide");
+        }
+        /*Sinon on push un tableau en récupérant les données via l'ID*/
+        else{
+            cartArray.push(productsArray[i].productsOnCart.id)
+        }
+    }
+    /*On convertit les 2 tableaux en chaine de caractère */
+    let convertDataToJson = JSON.stringify({contactInfos, cartArray});
+    /*Et on retourne les données converties*/
+    return convertDataToJson;
+}
+/*On crée l'envoi des informations au click sur le bouton "Commander"*/
 
 
-/*Messages d'erreur à insérer dans les conditions*/
-/*firstNameErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
-lastNameErrorMessage.innerText =  "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. ";
-adressErrorMessage.innerText = "Les symboles sont interdits";
-cityErrorMessage.innerText = "Veuillez saisir au minimim 2 lettres. Les chiffres et les symboles sont interdits. " ; 
-emailErrorMessage.innerText = "Adresse email invalide";  */
+
+
+
 
   
 
