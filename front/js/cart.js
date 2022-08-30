@@ -27,14 +27,14 @@ async function addToBasket(){
 
                   /*Création de la balise article*/
                   let cartArticle = document.createElement('article');
-                  cartArticle.classList.add = 'cart__item';
+                  cartArticle.className = 'cart__item';
                   cartArticle.dataset.id = productsOnCart.id;
                   cartArticle.dataset.color = productsOnCart.couleur;
                   cartItems.appendChild(cartArticle);
 
                   /*Création de la balise div cart__item__img*/
                   let cartDivImg = document.createElement('div');
-                  cartDivImg.classList.add = 'cart__item__img';
+                  cartDivImg.className = 'cart__item__img';
                   cartArticle.appendChild(cartDivImg);
 
                   /*Création de la balise img*/
@@ -45,13 +45,13 @@ async function addToBasket(){
 
                   /*Création de la balise div cart__item__content*/
                   let cartDivContent = document.createElement('div');
-                  cartDivContent.classList.add = 'cart__item__content';
+                  cartDivContent.className = 'cart__item__content';
                   cartArticle.appendChild(cartDivContent);
 
                   /*Création de la balise div cart__item__content_description*/
                   let cartDivContentDescription = document.createElement('div');
-                  cartDivContentDescription.classList.add = 'cart__item__content__description';
-                  cartArticle.appendChild(cartDivContentDescription);
+                  cartDivContentDescription.className = 'cart__item__content__description';
+                  cartDivContent.appendChild(cartDivContentDescription);
 
                   /*Création de la balise h2*/
                   let cartDescriptionName = document.createElement('h2');
@@ -65,28 +65,28 @@ async function addToBasket(){
 
                   /*Création de la balise p prix*/
                   let cartDescriptionPPrice = document.createElement('p');
-                  cartDescriptionPPrice.innerText = toAdd.price;
+                  cartDescriptionPPrice.innerText = toAdd.price + " €";
                   cartDivContentDescription.appendChild(cartDescriptionPPrice);
 
                   /*Création de la balise div cart__item__content__settings*/
                   let cartDivContentSettings = document.createElement('div');
-                  cartDivContentSettings.classList.add = 'cart__item__content__settings';
-                  cartArticle.appendChild(cartDivContentDescription);
+                  cartDivContentSettings.className = 'cart__item__content__settings';
+                  cartDivContent.appendChild(cartDivContentSettings);
 
                   /*Création de la balise div cart__item__content__settings__quantity*/
                   let cartSettingsQuantity = document.createElement('div');
-                  cartSettingsQuantity.classList.add = 'cart__item__content__settings__quantity';
+                  cartSettingsQuantity.className = 'cart__item__content__settings__quantity';
                   cartDivContentSettings.appendChild(cartSettingsQuantity);
 
                   /*Création de la balise p quantité*/
                   let cartSettingsQuantityP = document.createElement('p');
                   cartSettingsQuantityP.value = productsOnCart.quantite;        
-                  cartArticle.innerText = "Qté : "
+                  cartSettingsQuantityP.innerText = "Qté : "
                   cartSettingsQuantity.appendChild(cartSettingsQuantityP);
 
                   /*Création de la balise input et de ses attributs*/
                   let cartInputQuantity = document.createElement('input');
-                  cartInputQuantity.classList.add='itemQuantity';
+                  cartInputQuantity.className ='itemQuantity';
                   cartInputQuantity.type = "number";
                   cartInputQuantity.name = "itemQuantity";
                   cartInputQuantity.min = 1 ;
@@ -102,29 +102,29 @@ async function addToBasket(){
                     let modifyId = productsOnCart.id;
                     let modifyCouleur = productsOnCart.couleur;
                     /*Nous allons rechercher avec la méthode find et comparer les id et les couleurs des objets modifiés*/
-                    let modifyProduct = cart.find(p => p.id == modifyId && p.couleur == modifyCouleur);
+                    let modifyProduct = cart.find((p) => p.id == modifyId) && cart.find((p) => p.couleur == modifyCouleur);
                         if(modifyProduct){
-                          modifyProduct = productsOnCart.quantite;
-                          localStorage.setItem("toAdd", JSON.stringify(cart));
+                          modifyProduct.quantite = number(cartInputQuantity.value);
+                          localStorage.setItem("toAdd", JSON.stringify(modifyProduct));
 
                          } else {
                             cart.push(productOptions);
                             localStorage.setItem("toAdd", JSON.stringify(cart));
                          }
                     /*On joue la fonction de calcul des totaux*/
-                    calculTotals
+                    calculTotals();
                     /*On joue la fonction de rechargement de la page*/
-                    reload
+                    reload();
                   }
                   )
                   /*Création du bouton "supprimer"*/
                   /*Création de la div*/
                   let cartSettingsDelete = document.createElement('div');
-                  cartSettingsDelete.classList.add = 'cart__item__content__settings__delete';
+                  cartSettingsDelete.className = 'cart__item__content__settings__delete';
                   cartDivContentSettings.appendChild(cartSettingsDelete);
                   /*Création du paragraphe*/
                   let cartSettingsDeleteP = document.createElement('p');
-                  cartSettingsDeleteP.classList.add = 'deleteItem';
+                  cartSettingsDeleteP.className = 'deleteItem';
                   cartSettingsDeleteP.innerText = "Supprimer";
                   cartSettingsDelete.appendChild(cartSettingsDeleteP);
                   /*Supprimer un produit contenu dans le local storage*/
@@ -136,13 +136,14 @@ async function addToBasket(){
                     let deleteCouleur = productsOnCart.couleur;
                     /*La méthode .filter permet d'aller rechercher les éléments précis que l'on veut supprimer en fonction de l'id et la couleur*/
                     /*le .remove est une fonction du localStorage pour supprimer un élément*/
-                    let deleteItem = cart.filter (p => p.id != deleteId || p.couleur != deleteCouleur).remove();
+                    let deleteItem = cart.filter (p => p.id != deleteId || p.couleur != deleteCouleur);
+                    e.target.closest('.cart__item').remove();
                     /*On actualise le LS*/
-                    localStorage.setItem("toAdd", JSON.stringify(cart));
+                    localStorage.setItem("toAdd", JSON.stringify(deleteItem));
                     /*On joue la fonction de calcul des totaux*/
-                    calculTotals
+                    calculTotals();
                     /*On joue la fonction d'actualisation de la page*/
-                    reload
+                    reload();
                   }
                   )
                   }
@@ -156,14 +157,17 @@ async function addToBasket(){
     /*Fonction pour calculer le prix total et les quantités totales*/
     function calculTotals(){
       /*On recherche les éléments du DOM*/
-      let totalProducts = document.getElementById('totalQuantity');
-      let totalProductsPrice = document.getElementById('totalPrice');
+      let totalProducts = document.querySelector('#totalQuantity');
+      let totalProductsPrice = document.querySelector('#totalPrice');
       /*On initialise les compteurs à 0 par défaut*/
-      totalProducts = 0;
-      totalProductsPrice = 0;
+      let totalItems = 0;
+      let totalPrice = 0;
       /*On fait les calculs*/
-      totalProducts += parseInt(productsOnCart.quantite);
-      totalProductsPrice +=productsAddToBasket.price * parseInt(productsOnCart.quantite);
+      totalItems += parseInt(productsOnCart.quantite);
+      totalPrice += toAdd.price * parseInt(productsOnCart.quantite);
+      /*On le retranscrit en visuel*/
+      totalProducts.innerHTML = totalItems;
+      totalProductsPrice.innerHTML = totalPrice;
     }
 }
 /*On joue la fonction principale que l'on vient de créer*/
@@ -217,7 +221,7 @@ let validEmail = function(inputEmail){
   }
 }
 /**********************************Adresse********************************************/
-adress.addEventListener("change", function(){
+address.addEventListener("change", function(){
   validAddress(this);
 })
 /*Création de la fonction validAdress*/
@@ -317,6 +321,38 @@ function createElementsToPost(){
     return convertDataToJson;
 }
 /*On crée l'envoi des informations au click sur le bouton "Commander"*/
+
+let orderButton = document.getElementById('order');
+
+orderButton.addEventListener('click', (e) =>{
+  e.preventDefault();
+
+  let dataToSend = createElementsToPost();
+  fetch('http://localhost:3000/api/products/order', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: dataToSend
+  })
+    .then((response) => response.json())
+    .then((finalData)=>{
+      if(firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
+        alert("Veuillez renseigner tous les champs du formulaire");
+      }
+      else{
+        localStorage.clear();
+        let confirmationPageUrl = "./confirmation.html?id=" + finalData.orderId;
+        windows.location.href = confirmationPageUrl;
+      }
+    })
+    .catch ((error) => {
+      alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement")
+    })
+      
+});
+
+
 
 
 
