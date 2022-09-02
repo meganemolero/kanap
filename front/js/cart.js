@@ -146,27 +146,27 @@ async function addToBasket(){
                     reload();
                   }
                   )
-                  /*Fonction pour actualiser la page actuelle*/
-                  function reload (){
-                    document.location.reload
-                  }
-                  /*Fonction pour calculer le prix total et les quantités totales*/
-                  function calculTotals(){
-                  /*On recherche les éléments du DOM*/
-                  let totalProducts = document.querySelector('#totalQuantity');
-                  let totalProductsPrice = document.querySelector('#totalPrice');
-                  /*On initialise les compteurs à 0 par défaut*/
-                  let totalItems = 0;
-                  let totalPrice = 0;
-                  /*On fait les calculs*/
-                  totalItems += parseInt(productsOnCart.quantite);
-                  totalPrice += toAdd.price * parseInt(productsOnCart.quantite);
-                  /*On le retranscrit en visuel*/
-                  totalProducts.innerHTML = totalItems;
-                  totalProductsPrice.innerHTML = totalPrice;
-                  }
                   }
                   )
+          }
+          /*Fonction pour actualiser la page actuelle*/
+          function reload (){
+            document.location.reload
+          }
+          /*Fonction pour calculer le prix total et les quantités totales*/
+          function calculTotals(){
+          /*On recherche les éléments du DOM*/
+          let totalProducts = document.querySelector('#totalQuantity');
+          let totalProductsPrice = document.querySelector('#totalPrice');
+          /*On initialise les compteurs à 0 par défaut*/
+          let totalItems = 0;
+          let totalPrice = 0;
+          /*On fait les calculs*/
+          totalItems += parseInt(productsOnCart.quantite);
+          totalPrice += toAdd.price * parseInt(productsOnCart.quantite);
+          /*On le retranscrit en visuel*/
+          totalProducts.innerHTML = totalItems;
+          totalProductsPrice.innerHTML = totalPrice;
           }
     }
     
