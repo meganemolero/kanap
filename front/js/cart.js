@@ -104,7 +104,7 @@ async function addToBasket(){
                     /*Nous allons rechercher avec la méthode find et comparer les id et les couleurs des objets modifiés*/
                     let modifyProduct = cart.find((p) => p.id == modifyId) && cart.find((p) => p.couleur == modifyCouleur);
                         if(modifyProduct){
-                          modifyProduct.quantite = number(cartInputQuantity.value);
+                          modifyProduct.quantite = Number(cartInputQuantity.value);
                           localStorage.setItem("toAdd", JSON.stringify(modifyProduct));
 
                          } else {
@@ -146,29 +146,30 @@ async function addToBasket(){
                     reload();
                   }
                   )
+                  /*Fonction pour actualiser la page actuelle*/
+                  function reload (){
+                    document.location.reload
+                  }
+                  /*Fonction pour calculer le prix total et les quantités totales*/
+                  function calculTotals(){
+                  /*On recherche les éléments du DOM*/
+                  let totalProducts = document.querySelector('#totalQuantity');
+                  let totalProductsPrice = document.querySelector('#totalPrice');
+                  /*On initialise les compteurs à 0 par défaut*/
+                  let totalItems = 0;
+                  let totalPrice = 0;
+                  /*On fait les calculs*/
+                  totalItems += parseInt(productsOnCart.quantite);
+                  totalPrice += toAdd.price * parseInt(productsOnCart.quantite);
+                  /*On le retranscrit en visuel*/
+                  totalProducts.innerHTML = totalItems;
+                  totalProductsPrice.innerHTML = totalPrice;
+                  }
                   }
                   )
           }
     }
-    /*Fonction pour actualiser la page actuelle*/
-    function reload (){
-      document.location.reload
-    }
-    /*Fonction pour calculer le prix total et les quantités totales*/
-    function calculTotals(){
-      /*On recherche les éléments du DOM*/
-      let totalProducts = document.querySelector('#totalQuantity');
-      let totalProductsPrice = document.querySelector('#totalPrice');
-      /*On initialise les compteurs à 0 par défaut*/
-      let totalItems = 0;
-      let totalPrice = 0;
-      /*On fait les calculs*/
-      totalItems += parseInt(productsOnCart.quantite);
-      totalPrice += toAdd.price * parseInt(productsOnCart.quantite);
-      /*On le retranscrit en visuel*/
-      totalProducts.innerHTML = totalItems;
-      totalProductsPrice.innerHTML = totalPrice;
-    }
+    
 }
 /*On joue la fonction principale que l'on vient de créer*/
 addToBasket()
