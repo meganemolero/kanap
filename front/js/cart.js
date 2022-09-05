@@ -1,6 +1,5 @@
 /*Récupération du panier dans le localStorage*/
 let cart = JSON.parse(localStorage.getItem("toAdd"));
-
 /*Fonction asynchrone qui va créer un tableau des objets présent dans la panier donc dans le LS*/
 async function addToBasket(){
     if(cart){
@@ -169,6 +168,9 @@ async function addToBasket(){
           totalProductsPrice.innerHTML = totalPrice;
           }
     }
+    else{
+      alert("Le panier est vide")
+    }
     
 }
 /*On joue la fonction principale que l'on vient de créer*/
@@ -313,7 +315,7 @@ function createElementsToPost(){
         }
         /*Sinon on push un tableau en récupérant les données via l'ID*/
         else{
-            cartArray.push(productsArray[i].productsOnCart.id)
+            cartArray.push(productsArray[i].id)
         }
     }
     /*On convertit les 2 tableaux en chaine de caractère */
