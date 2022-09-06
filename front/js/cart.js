@@ -110,8 +110,6 @@ async function addToBasket(){
                             cart.push(productOptions);
                             localStorage.setItem("toAdd", JSON.stringify(cart));
                          }
-                    /*On joue la fonction de calcul des totaux*/
-                    calculTotals();
                     /*On joue la fonction de rechargement de la page*/
                     reload();
                   }
@@ -139,6 +137,12 @@ async function addToBasket(){
                     e.target.closest('.cart__item').remove();
                     /*On actualise le LS*/
                     localStorage.setItem("toAdd", JSON.stringify(deleteItem));
+                    /*On va calculer le prix total*/
+                    let totalPrice = querySelector('#totalPrice');
+                    let totalAmount = 0;
+                    totalAmount =+ Number(cartInputQuantity.value) * Number(toAdd.price);
+                    totalPrice.innerText = totalAmount;
+
                     
                     /*On joue la fonction d'actualisation de la page*/
                     reload();
@@ -165,20 +169,12 @@ function reload (){
 function calculTotals(){
   if(cart){
     let totalQuantity = cart;
-  
-  let totalProducts = document.querySelector('#totalQuantity');
-  
-  
-  let totalItems = 0;
- 
-  
-  for (let toAdd of totalQuantity){
-  totalItems += Number(productsOnCart.cartInputQuantity);
-  }
-  
-  
+    let totalProducts = document.querySelector('#totalQuantity');
+    let totalItems = 0;
+    for (let toAdd of totalQuantity){
+        totalItems += Number(toAdd.quantite);
+        }
   totalProducts.textContent = totalItems;
-  
   } 
   } 
 calculTotals();
