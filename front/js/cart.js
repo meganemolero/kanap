@@ -142,7 +142,7 @@ async function addToBasket(){
                     
                     /*On joue la fonction d'actualisation de la page*/
                     reload();
-                    
+
                   }
                   )
                   }
@@ -159,10 +159,10 @@ async function addToBasket(){
 addToBasket();
 /*Fonction pour actualiser la page actuelle*/
 function reload (){
-  document.location.reload
+  document.location.reload()
 }
 /*Fonction pour calculer le prix total et les quantités totales*/
-/*function calculTotals(){
+function calculTotals(){
   if(cart){
     let totalQuantity = cart;
   
@@ -180,8 +180,8 @@ function reload (){
   totalProducts.textContent = totalItems;
   
   } 
-  } */
-
+  } 
+calculTotals();
 
 
 /*************************************************          Mise en place des formulaires de contact      *********************************************************************/
