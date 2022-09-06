@@ -139,42 +139,49 @@ async function addToBasket(){
                     e.target.closest('.cart__item').remove();
                     /*On actualise le LS*/
                     localStorage.setItem("toAdd", JSON.stringify(deleteItem));
-                    /*On joue la fonction de calcul des totaux*/
-                    calculTotals();
+                    
                     /*On joue la fonction d'actualisation de la page*/
                     reload();
+                    
                   }
                   )
                   }
                   )
           }
-          /*Fonction pour actualiser la page actuelle*/
-          function reload (){
-            document.location.reload
-          }
-          /*Fonction pour calculer le prix total et les quantités totales*/
-          function calculTotals(){
-          /*On recherche les éléments du DOM*/
-          let totalProducts = document.querySelector('#totalQuantity');
-          let totalProductsPrice = document.querySelector('#totalPrice');
-          /*On initialise les compteurs à 0 par défaut*/
-          let totalItems = 0;
-          let totalPrice = 0;
-          /*On fait les calculs*/
-          totalItems += parseInt(productsOnCart.quantite);
-          totalPrice += toAdd.price * parseInt(productsOnCart.quantite);
-          /*On le retranscrit en visuel*/
-          totalProducts.innerHTML = totalItems;
-          totalProductsPrice.innerHTML = totalPrice;
-          }
+          
+         
     }
     else{
       alert("Le panier est vide")
-    }
-    
+    } 
 }
 /*On joue la fonction principale que l'on vient de créer*/
-addToBasket()
+addToBasket();
+/*Fonction pour actualiser la page actuelle*/
+function reload (){
+  document.location.reload
+}
+/*Fonction pour calculer le prix total et les quantités totales*/
+/*function calculTotals(){
+  if(cart){
+    let totalQuantity = cart;
+  
+  let totalProducts = document.querySelector('#totalQuantity');
+  
+  
+  let totalItems = 0;
+ 
+  
+  for (let toAdd of totalQuantity){
+  totalItems += Number(productsOnCart.cartInputQuantity);
+  }
+  
+  
+  totalProducts.textContent = totalItems;
+  
+  } 
+  } */
+
 
 
 /*************************************************          Mise en place des formulaires de contact      *********************************************************************/
