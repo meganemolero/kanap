@@ -112,6 +112,7 @@ async function addToBasket(){
                          }
                     /*On joue la fonction de rechargement de la page*/
                     reload();
+                    calculTotals();
                   }
                   )
                   /*Création du bouton "supprimer"*/
@@ -142,9 +143,7 @@ async function addToBasket(){
                     let totalAmount = 0;
                     totalAmount =+ Number(cartInputQuantity.value) * Number(toAdd.price);
                     totalPrice.innerText = totalAmount;
-
-                    
-                    /*On joue la fonction d'actualisation de la page*/
+                  /*On joue la fonction d'actualisation de la page*/
                     reload();
 
                   }
@@ -172,12 +171,12 @@ function calculTotals(){
     let totalProducts = document.querySelector('#totalQuantity');
     let totalItems = 0;
     for (let toAdd of totalQuantity){
-        totalItems += Number(toAdd.quantite);
+        totalItems += Number(toAdd.totalQuantity);
         }
   totalProducts.textContent = totalItems;
   } 
   } 
-calculTotals();
+
 
 
 /*************************************************          Mise en place des formulaires de contact      *********************************************************************/
@@ -349,7 +348,7 @@ orderButton.addEventListener('click', (e) =>{
       else{
         localStorage.clear();
         let confirmationPageUrl = "./confirmation.html?id=" + finalData.orderId;
-        windows.location.href = confirmationPageUrl;
+        document.location.href = confirmationPageUrl;
       }
     })
     .catch ((error) => {
