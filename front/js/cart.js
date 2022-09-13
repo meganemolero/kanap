@@ -335,17 +335,22 @@ let validCity = function(inputCity){
                     'Content-Type': 'application/json'
                   },
                   body: convertDataToJson
-              });
+              })
               .then((response) => response.json())
               .then((finalData)=>{
                 localStorage.clear();
                 let confirmationPageUrl = "./confirmation.html?id=" + finalData.orderId;
                 document.location.href = confirmationPageUrl;
-              });
+              })
             
-              .catch ((error) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
+              .catch ((e) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
           };
-          createElementsToPost();
+
+      };
+      createElementsToPost();
+    }
+  });
+         
       
         
 
