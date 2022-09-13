@@ -13,12 +13,11 @@ fetch(url)
     /*Fonction qui récupère les différentes caractéristiques des produits*/
     .then(function(product){
 
-        let picture = document.getElementsByClassName('item__img');
-        picture.innerHTML = product.imageUrl;
-        
-        
+        let picture = document.createElement('img');
+        picture.src = product.imageUrl;
+        picture.alt = product.altTxt;
+        document.querySelector('.item__img').appendChild(picture);
     
-        
         let items = document.getElementById('title');
         items.innerHTML = product.name;
 
