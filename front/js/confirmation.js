@@ -1,6 +1,6 @@
 /*Récupération des informations via url searchParams*/
 let params = new URL(window.location.href);
-let id = params.searchParams.get('id');
+let id = params.searchParams.get('orderId');
 
 /*Récupération des éléments du DOM*/
 let orderNumber = document.getElementById("orderId");
