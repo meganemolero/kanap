@@ -5,3 +5,5 @@ let id = params.searchParams.get('id');
 /*Récupération des éléments du DOM*/
 let orderNumber = document.getElementById("orderId");
 orderNumber.innerText = id;
+
+localStorage.clear();
