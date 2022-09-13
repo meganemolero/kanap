@@ -305,9 +305,9 @@ let validCity = function(inputCity){
   orderButton.addEventListener('click', (e) =>{
   e.preventDefault();
 
-    if(cart != ){
+    if(cart != null){
       alert('Votre panier est vide')
-    };
+    }
     else if (firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
       alert("Veuillez renseigner tous les champs du formulaire");
     }
