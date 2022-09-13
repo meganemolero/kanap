@@ -12,6 +12,12 @@ fetch(url)
     })
     /*Fonction qui récupère les différentes caractéristiques des produits*/
     .then(function(product){
+
+        let picture = document.getElementsByClassName('item__img');
+        picture.innerHTML = product.imageUrl;
+        
+        
+    
         
         let items = document.getElementById('title');
         items.innerHTML = product.name;
