@@ -112,7 +112,6 @@ async function addToBasket(){
                          }
                     /*On joue la fonction de rechargement de la page*/
                     reload();
-                    calculTotals();
                   }
                   )
                   /*Création du bouton "supprimer"*/
