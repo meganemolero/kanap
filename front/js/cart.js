@@ -3,6 +3,7 @@ let cart = JSON.parse(localStorage.getItem("toAdd"));
 /*Fonction asynchrone qui va créer un tableau des objets présent dans la panier donc dans le LS*/
 async function addToBasket(){
     if(cart){
+      let totalAmount = 0;
           /*Boucle pour aller récupérer tous les produits dans le LS*/
           for (let toAdd of cart){
             /*Création de la variable qui va regrouper les éléments récupérés dans le LS*/
@@ -104,10 +105,10 @@ async function addToBasket(){
                     let modifyProduct = cart.find((p) => p.id == modifyId) && cart.find((p) => p.couleur == modifyCouleur);
                         if(modifyProduct){
                           modifyProduct.quantite = Number(cartInputQuantity.value);
-                          localStorage.setItem("toAdd", JSON.stringify(modifyProduct));
+                          localStorage.setItem("toAdd", JSON.stringify(cart));
 
                          } else {
-                            cart.push(productOptions);
+                            cart.push(toAdd);
                             localStorage.setItem("toAdd", JSON.stringify(cart));
                          }
                     /*On joue la fonction de rechargement de la page*/
@@ -137,16 +138,17 @@ async function addToBasket(){
                     e.target.closest('.cart__item').remove();
                     /*On actualise le LS*/
                     localStorage.setItem("toAdd", JSON.stringify(deleteItem));
-                    /*On va calculer le prix total*/
-                    let totalPrice = querySelector('#totalPrice');
-                    let totalAmount = 0;
-                    totalAmount =+ Number(cartInputQuantity.value) * Number(toAdd.price);
-                    totalPrice.innerText = totalAmount;
-                  /*On joue la fonction d'actualisation de la page*/
+                    /*On joue la fonction d'actualisation de la page*/
                     reload();
+                    });
+                    /*On va calculer le prix total*/
+                    let totalPrice = document.querySelector('#totalPrice');
+                    totalAmount += cartInputQuantity.value * toAdd.price;
+                    totalPrice.innerText = totalAmount;
+                  
 
-                  }
-                  )
+                  
+                  
                   }
                   )
           }
@@ -170,11 +172,12 @@ function calculTotals(){
     let totalProducts = document.querySelector('#totalQuantity');
     let totalItems = 0;
     for (let toAdd of totalQuantity){
-        totalItems += Number(toAdd.totalQuantity);
+        totalItems += Number(toAdd.quantite);
         }
   totalProducts.textContent = totalItems;
   } 
   } 
+  calculTotals();
 
 
 
@@ -186,7 +189,7 @@ function calculTotals(){
 /*Adresse mail*/
 let regexEmail = new RegExp ('^[a-zA-Z0-9._-]+[@]{1}[a-zA-Z0-9._-]+[.]{1}[a-z]{2,10}$', 'g');
 /*Adresse postale*/
-let regexAddress = new RegExp ('^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ0-9_-]$');
+let regexAddress = new RegExp (/^[0-9a-zA-Z\s,.'-çñàéèêëïîôüù]{3,}$/);
 /*Nom, prénom et ville*/
 let regexInfos = new RegExp ('^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,}$');
 
@@ -295,66 +298,61 @@ let validCity = function(inputCity){
 
 /*************************************************************Envoi des informations ******************************/
 /*On crée une fonction pour envoyer 2 tableaux au LS ( Les informations de contact et le récapitulatif des produits présents dans le LS)*/
-function createElementsToPost(){
-    /*Récaptulatif des données saisies dans le formulaire*/
-    let contactInfos ={
-      fisrtName : firstName.value,
-      lastName : lastName.value,
-      address : address.value,
-      city : city.value,
-      email : email.value,
-    };
-    /*Récupérations des données produits dans le LS*/
-    let productsArray = cart;
-    /*Déclaration d'un tableau*/
-    let cartArray = [];
-    /*On boucle pour récupérer tous les produits du LS*/
-    for (let i = 0; i< productsArray.length; i++){
-        /*Si LS vide (ne renvoie aucune valeur)*/
-        if (cartArray.find(p => p === productsArray[i][0])){
-            console.log("Le panier est vide");
-        }
-        /*Sinon on push un tableau en récupérant les données via l'ID*/
-        else{
-            cartArray.push(productsArray[i].id)
-        }
-    }
-    /*On convertit les 2 tableaux en chaine de caractère */
-    let convertDataToJson = JSON.stringify({contactInfos, cartArray});
-    /*Et on retourne les données converties*/
-    return convertDataToJson;
-}
-/*On crée l'envoi des informations au click sur le bouton "Commander"*/
 
-let orderButton = document.getElementById('order');
+  /*On crée l'envoi des informations au click sur le bouton "Commander"*/
+  let orderButton = document.getElementById('order');
 
-orderButton.addEventListener('click', (e) =>{
+  orderButton.addEventListener('click', (e) =>{
   e.preventDefault();
 
-  let dataToSend = createElementsToPost();
-  fetch('http://localhost:3000/api/products/order', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: dataToSend
-  })
-    .then((response) => response.json())
-    .then((finalData)=>{
-      if(firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
-        alert("Veuillez renseigner tous les champs du formulaire");
-      }
-      else{
-        localStorage.clear();
-        let confirmationPageUrl = "./confirmation.html?id=" + finalData.orderId;
-        document.location.href = confirmationPageUrl;
-      }
-    })
-    .catch ((error) => {
-      alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement")
-    })
+    if(cart != ){
+      alert('Votre panier est vide')
+    };
+    else if (firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
+      alert("Veuillez renseigner tous les champs du formulaire");
+    }
+    else { 
+      function createElementsToPost(){  
+        let cartArray = [];
+          for (toAdd of cart){
+              cartArray.push(toAdd.id)
+              let myOrder ={
+                contact : {
+                fisrtName : firstName.value,
+                lastName : lastName.value,
+                address : address.value,
+                city : city.value,
+                email : email.value
+                },
+                products : cartArray    
+              };
+              let convertDataToJson = JSON.stringify(myOrder);
+              
+
+              fetch('http://localhost:3000/api/products/order', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: convertDataToJson
+              });
+              .then((response) => response.json())
+              .then((finalData)=>{
+                localStorage.clear();
+                let confirmationPageUrl = "./confirmation.html?id=" + finalData.orderId;
+                document.location.href = confirmationPageUrl;
+              });
+            
+              .catch ((error) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
+          };
+          createElementsToPost();
       
-});
+        
+
+    
+
+    
+  
 
 
 
