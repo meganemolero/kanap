@@ -305,14 +305,14 @@ let validCity = function(inputCity){
   orderButton.addEventListener('click', (e) =>{
   e.preventDefault();
 
-    if(cart != null){
+    if(!cart){
       alert('Votre panier est vide')
     }
     else if (firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
       alert("Veuillez renseigner tous les champs du formulaire");
     }
     else { 
-      function createElementsToPost(){  
+        
         let cartArray = [];
           for (toAdd of cart){
               cartArray.push(toAdd.id)
@@ -332,24 +332,22 @@ let validCity = function(inputCity){
               fetch('http://localhost:3000/api/products/order', {
                   method: 'POST',
                   headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                   },
                   body: convertDataToJson
               })
               .then((response) => response.json())
               .then((finalData)=>{
-                localStorage.clear();
-                let confirmationPageUrl = "./confirmation.html?id=" + finalData.orderId;
-                document.location.href = confirmationPageUrl;
+                document.location.href = "confirmation.html?orderId =" + finalData.orderId;;
               })
             
               .catch ((e) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
           };
 
       };
-      createElementsToPost();
+      
     }
-  });
+  );
          
       
         
