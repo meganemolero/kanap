@@ -322,6 +322,8 @@ let validCity = function(inputCity){
         let cartArray = [];
           for (toAdd of cart){
               cartArray.push(toAdd.id)
+          };
+            
               let myOrder ={
                 contact : {
                 firstName : firstName,
@@ -333,9 +335,6 @@ let validCity = function(inputCity){
                 products : cartArray    
               };
               console.log(myOrder);
-              
-              
-
               fetch('http://localhost:3000/api/products/order', {
                   method: 'POST',
                   headers: {
@@ -350,7 +349,6 @@ let validCity = function(inputCity){
               })
             
               .catch ((e) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
-          };
 
       };
       
