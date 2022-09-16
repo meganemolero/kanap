@@ -304,6 +304,12 @@ let validCity = function(inputCity){
 
   orderButton.addEventListener('click', (e) =>{
   e.preventDefault();
+  let firstName = document.getElementById("firstName").value;
+  let lastName = document.getElementById("lastName").value;
+  let address = document.getElementById("address").value;
+  let city = document.getElementById("city").value;
+  let email = document.getElementById("email").value;
+
 
     if(!cart){
       alert('Votre panier est vide')
@@ -318,23 +324,25 @@ let validCity = function(inputCity){
               cartArray.push(toAdd.id)
               let myOrder ={
                 contact : {
-                fisrtName : firstName.value,
-                lastName : lastName.value,
-                address : address.value,
-                city : city.value,
-                email : email.value
+                firstName : firstName,
+                lastName : lastName,
+                address : address,
+                city : city,
+                email : email
                 },
                 products : cartArray    
               };
-              let convertDataToJson = JSON.stringify(myOrder);
+              console.log(myOrder);
+              
               
 
               fetch('http://localhost:3000/api/products/order', {
                   method: 'POST',
                   headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Content-Type' : 'application/json'  
                   },
-                  body: convertDataToJson
+                  body: JSON.stringify(myOrder)
               })
               .then((response) => response.json())
               .then((finalData)=>{
