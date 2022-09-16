@@ -311,46 +311,46 @@ let validCity = function(inputCity){
   let email = document.getElementById("email").value;
 
 
-    if(!cart){
+   /* if(!cart){
       alert('Votre panier est vide')
     }
     else if (firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
       alert("Veuillez renseigner tous les champs du formulaire");
     }
-    else { 
+    else { */
         
         let cartArray = [];
-          for (toAdd of cart){
-              cartArray.push(toAdd.id)
+          for ( let product of cart){
+              cartArray.push(product.Id)
           };
             
-              let myOrder ={
-                contact : {
-                firstName : firstName,
-                lastName : lastName,
-                address : address,
-                city : city,
-                email : email
-                },
-                products : cartArray    
-              };
-              console.log(myOrder);
-              fetch('http://localhost:3000/api/products/order', {
+        let myOrder ={
+              contact : {
+              firstName : firstName,
+              lastName : lastName,
+              address : address,
+              city : city,
+              email : email
+              },
+              products : cartArray    
+        };
+        console.log(myOrder);
+        fetch('http://localhost:3000/api/products/order', {
                   method: 'POST',
                   headers: {
                     'Accept': 'application/json',
                     'Content-Type' : 'application/json'  
                   },
                   body: JSON.stringify(myOrder)
-              })
-              .then((response) => response.json())
-              .then((finalData)=>{
-                document.location.href = "confirmation.html?orderId =" + finalData.orderId;;
-              })
+        })
+        .then((response) => response.json())
+        .then((Data)=>{
+            document.location.href = "confirmation.html?orderId =" + Data.orderId;;
+        })
             
-              .catch ((e) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
+        .catch ((e) => alert("Nous avons rencontré un problème, veuillez réesayer ultérieurement"));    
 
-      };
+      /*};*/
       
     }
   );
