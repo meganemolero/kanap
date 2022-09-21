@@ -56,32 +56,32 @@ fetch(url)
                     alert("Vous devez saisir une quantité comprise entre 1 et 100");
             }
                 else{
-                /*On verifie si cart existe*/        
-                if (cart){
-                    /*Puis on a va rechercher les infos d'id et de couleur pour vérifier s'il y a deja un meme produit dans le LS*/
-                    let getProducts = cart.find( p => p.id == productOptions.id && p.couleur == productOptions.couleur);
-                    /*Si c'est le cas on incrémente la quantité*/
-                    if(getProducts){
-                        let addNewQuantity = getProducts.quantite + productOptions.quantite;
-                        getProducts.quantite = addNewQuantity;
-                        /*On envoi les données au LS*/
-                        localStorage.setItem("toAdd", JSON.stringify(cart));
-                        /*On alerte l'utilisateur que le produit a été ajouté*/
-                        alert ("Votre article a bien été ajouté au panier");
+                    /*On verifie si cart existe*/        
+                    if (cart){
+                        /*Puis on a va rechercher les infos d'id et de couleur pour vérifier s'il y a deja un meme produit dans le LS*/
+                        let getProducts = cart.find( p => p.id == productOptions.id && p.couleur == productOptions.couleur);
+                        /*Si c'est le cas on incrémente la quantité*/
+                        if(getProducts){
+                            let addNewQuantity = getProducts.quantite + productOptions.quantite;
+                            getProducts.quantite = addNewQuantity;
+                            /*On envoi les données au LS*/
+                            localStorage.setItem("toAdd", JSON.stringify(cart));
+                            /*On alerte l'utilisateur que le produit a été ajouté*/
+                            alert ("Votre article a bien été ajouté au panier");
                         }
-                    /*Sinon on ajoute un nouveau produit au LS*/
-                    else{
-                        cart.push(productOptions);
-                        localStorage.setItem("toAdd", JSON.stringify(cart));
+                        /*Sinon on ajoute un nouveau produit au LS*/
+                        else{
+                            cart.push(productOptions);
+                            localStorage.setItem("toAdd", JSON.stringify(cart));
                         }
-                /*Sinon on crée un tableau vide qu'on transfère au local Storage*/     
-                }else{
-                cart =[];
-                cart.push(productOptions);  
-                localStorage.setItem("toAdd", JSON.stringify(cart)); 
-                }
+                        /*Sinon on crée un tableau vide qu'on transfère au local Storage*/     
+                    }else{
+                        cart =[];
+                        cart.push(productOptions);  
+                        localStorage.setItem("toAdd", JSON.stringify(cart)); 
+                    }
 
-            }
+                }
         })
     })
 
