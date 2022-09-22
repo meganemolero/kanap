@@ -300,13 +300,14 @@ orderButton.addEventListener('click', (e) =>{
   let city = document.getElementById("city").value;
   let email = document.getElementById("email").value;
 
-
     if(!cart){
       alert('Votre panier est vide')
     }
-    else if (firstName.value ==="" || lastName.value ==="" || address.value ==="" ||city.value ==="" ||email.value ===""){
+    else if (firstName ==="" || lastName ==="" || address ==="" ||city ==="" ||email ===""){
       alert("Veuillez renseigner tous les champs du formulaire");
     }
+    else if (regexEmail(firstName.value) == false || regexAddress(Address.value) == false || regexInfos(FirstName.value) == false || regexInfos(LastName.value) == false ||regexInfos(City.value) == false)
+      alert("Des erreurs dans vos saisies ont été détectées");
     else { 
       let cartArray = [];
         for ( let product of cart){
